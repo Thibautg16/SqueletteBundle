@@ -1,0 +1,4 @@
+services:
+#    thibautg16_squelette.example:
+#        class: Thibautg16\SqueletteBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
