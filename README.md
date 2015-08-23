@@ -1,0 +1,2 @@
+# SqueletteBundle
+Symfony Squelette Bundle 
