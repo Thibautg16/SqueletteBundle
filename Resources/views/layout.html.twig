@@ -106,11 +106,19 @@
                                   {% endif %}
                                   
                                   {% set bundle = app.request.get('_controller')|split('\x5c') %}
+                                  {% set admin = FALSE %}
 
-                                  {# ameliorer le test, en utilisant un split par exemple + lowercase + boucle sur tout les roles et pas seulement le premier ? #}
-                                  {% if app.user.roles.0 == 'ROLE_ADMIN' %}
-                                    {% include 'Thibautg16' ~ bundle.1 ~ ':Menu:menu_admin_' ~ bundle.1|slice(0,-6)|lower ~ '.html.twig' %}
+                                  {% for role in app.user.roles %}
+                                    {% if (((role == 'ROLE_ADMIN') or (role == 'ROLE_SUPERADMIN')) and not admin) %}
+                                      {% include 'Thibautg16' ~ bundle.1 ~ ':Menu:menu_admin_' ~ bundle.1|slice(0,-6)|lower ~ '.html.twig' %}
+                                      {% set admin = 1 %}
+                                    {% endif %}
+                                  {% endfor %}
+                                  
+                                  {% if not admin %}
+                                    {% include 'Thibautg16' ~ bundle.1 ~ ':Menu:menu_' ~ bundle.1|slice(0,-6)|lower ~ '.html.twig' %}
                                   {% endif %}
+                                  
                                 </ul>
                                 <ul class="nav navbar-nav pull-right">
                                   <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username|upper }}&nbsp;&nbsp;<b class="caret"></b></a>
