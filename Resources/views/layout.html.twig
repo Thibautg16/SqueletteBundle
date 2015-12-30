@@ -24,6 +24,9 @@
 
             <!-- Notifit CSS -->
             <link rel="stylesheet" type="text/css" href="{{ asset('bundles/thibautg16squelette/css/notifit.css') }}" />
+            
+            <!-- Squelette CSS -->
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/thibautg16squelette/css/squelette.css') }}" />           
         {% endblock %}
 
         <!-- Get jQuery from Google CDN -->
@@ -106,17 +109,22 @@
                                   {% endif %}
                                   
                                   {% set bundle = app.request.get('_controller')|split('\x5c') %}
+                                  {% if bundle.1 == "Controller" %}
+                                    {% set bundle = bundle.0 %}
+                                  {% else %}
+                                    {% set bundle = bundle.0 ~ bundle.1 %}
+                                  {% endif %}
                                   {% set admin = FALSE %}
 
                                   {% for role in app.user.roles %}
                                     {% if (((role == 'ROLE_ADMIN') or (role == 'ROLE_SUPERADMIN')) and not admin) %}
-                                      {% include 'Thibautg16' ~ bundle.1 ~ ':Menu:menu_admin_' ~ bundle.1|slice(0,-6)|lower ~ '.html.twig' %}
+                                      {% include bundle ~ ':Menu:menu_admin_' ~ bundle|slice(0,-6)|lower ~ '.html.twig' %}
                                       {% set admin = 1 %}
                                     {% endif %}
                                   {% endfor %}
                                   
                                   {% if not admin %}
-                                    {% include 'Thibautg16' ~ bundle.1 ~ ':Menu:menu_' ~ bundle.1|slice(0,-6)|lower ~ '.html.twig' %}
+                                    {% include bundle ~ ':Menu:menu_' ~ bundle|slice(0,-6)|lower ~ '.html.twig' %}
                                   {% endif %}
                                   
                                 </ul>
