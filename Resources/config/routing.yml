@@ -1,3 +1,0 @@
-thibautg16_squelette_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: Thibautg16SqueletteBundle:Default:index }

@@ -1,4 +1,32 @@
-{# Thibautg16/SqueletteBundle/Resources/views/layout.html.twig #}
+{# 
+ # Thibautg16/SqueletteBundle/Resources/views/layout.html.twig 
+ # Copyright 2016 GILLARDEAU Thibaut (aka Thibautg16)
+ #
+ # Authors :
+ #  - Gillardeau Thibaut (aka Thibautg16)
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License"). 
+ # You may not use this file except in compliance with the License. 
+ # A copy of the License is located at :
+ # 
+ # http://www.apache.org/licenses/LICENSE-2.0.txt 
+ # 
+ # or in the "license" file accompanying this file. This file is distributed 
+ # on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either 
+ # express or implied. See the License for the specific language governing 
+ # permissions and limitations under the License. 
+ #}
+
+{% set bundle = app.request.get('_controller')|split('\x5c') %}
+
+{% if bundle.1 == "Controller" %}
+  {% set bundle = bundle.0 %}
+{% else %}
+  {% set bundle = bundle.0 ~ bundle.1 %}
+{% endif %}
+
+{% set bundleName = bundle|slice(0,-6)|lower %}
+{% set admin = FALSE %}
  
 <!DOCTYPE html>
 <html>
@@ -26,7 +54,10 @@
             <link rel="stylesheet" type="text/css" href="{{ asset('bundles/thibautg16squelette/css/notifit.css') }}" />
             
             <!-- Squelette CSS -->
-            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/thibautg16squelette/css/squelette.css') }}" />           
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/thibautg16squelette/css/squelette.css') }}" />   
+            
+            <!-- Bundle CSS -->
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/'~bundleName~'/css/'~bundleName~'.css') }}" />        
         {% endblock %}
 
         <!-- Get jQuery from Google CDN -->
@@ -107,24 +138,16 @@
                                   {% else %}
                                     <li><a href="">Accueil</a></li>
                                   {% endif %}
-                                  
-                                  {% set bundle = app.request.get('_controller')|split('\x5c') %}
-                                  {% if bundle.1 == "Controller" %}
-                                    {% set bundle = bundle.0 %}
-                                  {% else %}
-                                    {% set bundle = bundle.0 ~ bundle.1 %}
-                                  {% endif %}
-                                  {% set admin = FALSE %}
 
                                   {% for role in app.user.roles %}
-                                    {% if (((role == 'ROLE_ADMIN') or (role == 'ROLE_SUPERADMIN')) and not admin) %}
-                                      {% include bundle ~ ':Menu:menu_admin_' ~ bundle|slice(0,-6)|lower ~ '.html.twig' %}
+                                    {% if (((role == 'ROLE_ADMIN') or (role == 'ROLE_SUPER_ADMIN')) and not admin) %}
+                                      {% include bundle ~ ':Menu:menu_admin_'~bundleName~'.html.twig' %}
                                       {% set admin = 1 %}
                                     {% endif %}
                                   {% endfor %}
                                   
                                   {% if not admin %}
-                                    {% include bundle ~ ':Menu:menu_' ~ bundle|slice(0,-6)|lower ~ '.html.twig' %}
+                                    {% include bundle ~ ':Menu:menu_'~bundleName~'.html.twig' %}
                                   {% endif %}
                                   
                                 </ul>
@@ -133,7 +156,7 @@
                                     <ul class="dropdown-menu">
                                       <li><a href=""><i class="icon-cog"></i>Préférences</a></li>
                                       <li class="divider"></li>
-                                      <li><a href="{{ path('logout') }}"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+                                      <li><a href="{{ path('utilisateur_logout') }}"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
                                     </ul>
                                   </li>
                                 </ul>
