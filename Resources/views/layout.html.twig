@@ -60,7 +60,13 @@
             <link rel="stylesheet" type="text/css" href="{{ asset('bundles/'~bundleName~'/css/'~bundleName~'.css') }}" />        
         {% endblock %}
 
-        <!-- Get jQuery from Google CDN -->
+
+
+
+
+
+
+	        <!-- Get jQuery from Google CDN -->
         <!--[if !IE]> -->
             <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">'+"<"+"/script>"); </script>
         <!-- <![endif]-->
@@ -71,6 +77,11 @@
             <script src="{{ asset('bundles/thibautg16squelette/js/ie.min.js') }}"></script>
         <![endif]-->
         <script src="{{ asset('bundles/thibautg16squelette/js/notifit.js') }}"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.6/gridstack.min.css" />
+<script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.2.6/gridstack.min.js'></script>
+
+
     </head>
 
         <body class="theme-default main-menu-animated main-navbar-fixed">
@@ -156,7 +167,7 @@
                                     <ul class="dropdown-menu">
                                       <li><a href=""><i class="icon-cog"></i>Préférences</a></li>
                                       <li class="divider"></li>
-                                      <li><a href="{{ path('utilisateur_logout') }}"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+                                      <li><a href="{{ path('logout') }}"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
                                     </ul>
                                   </li>
                                 </ul>
@@ -211,5 +222,15 @@
 
      <!-- Bootstrap JS  -->
     <script src="{{ asset('bundles/thibautg16squelette/js/bootstrap.min.js') }}"></script>
-  </body>
+<script type="text/javascript">
+$(function () {
+     
+  
+    
+     
+	$('.grid-stack').gridstack();
+});
+</script>  
+
+</body>
 </html> 
