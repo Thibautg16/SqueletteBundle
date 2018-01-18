@@ -7,7 +7,7 @@
         "symfony", "bundle", "squelette", "template"
     ],
     "type" : "symfony-bundle",
-    "license":"GNU",
+    "license":"GPL-2.0-or-later",
     "authors" : [{
         "name" : "GILLARDEAU Thibaut (aka Thibautg16)",
         "email" : "thibaut@thibaut.ovh"
