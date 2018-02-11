@@ -1,6 +1,6 @@
 {
     "name" : "thibautg16/squelette-bundle",
-    "version" : "0.1",
+    "version" : "1.0",
     "homepage" : "https://github.com/Thibautg16/SqueletteBundle",
     "description" : "Symfony Squelette Bundle",
     "keywords" : [
@@ -12,9 +12,6 @@
         "name" : "GILLARDEAU Thibaut (aka Thibautg16)",
         "email" : "thibaut@thibaut.ovh"
     }],
-    "require": {
-        "php": ">=5.3.3"
-    },
     "autoload": {
         "psr-4": { "Thibautg16\\SqueletteBundle\\": "" }
     }

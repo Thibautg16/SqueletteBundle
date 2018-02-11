@@ -111,7 +111,12 @@ function CalculGain(){
 
 $(document).ready(function() {
         //Tabs jquery pour différentes pages
-        $( "#tabs" ).tabs();
+		$( "#tabs" ).tabs();
+		
+		//Footable
+		jQuery(function($){
+			$('.footable').footable();
+		});
 	
 	//On regarde l'url courante afin d'appliquer les changements necessaires
 	var Route = document.location.pathname;
@@ -126,6 +131,9 @@ $(document).ready(function() {
 			AjaxClick('Produit_modele', '/modele/getModeleType/'+idType);
 		});
 	}
+	
+	// initialisation function pour les formulaire ajax
+    initAjaxForm();
 })
 
 //Menu déroulant multi-niveau
@@ -146,3 +154,20 @@ $(function(){
 		root.find('.sub-menu:visible').hide();
 	});
 });
+
+//Formulaire ajax
+function initAjaxForm(){
+    $('body').on('submit', '.ajax-form', function (e) {
+
+        e.preventDefault();
+		zone="form_designation";
+
+        $.ajax({
+            type: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+			error: function(jqXHR, textStatus, errorThrown) { $('#'+zone).html('error')},
+			success: function(htmlResponse) { $('#'+zone).show("fast"); $('ajouterDesignation').html(''); $('#'+zone).html(htmlResponse)},
+        })
+    });
+}

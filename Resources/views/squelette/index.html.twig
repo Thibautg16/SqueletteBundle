@@ -1,0 +1,49 @@
+{# 
+ # Thibautg16/SqueletteBundle/Resources/views/squelette/index.html.twig 
+ #
+ # Copyright 2016-2018 GILLARDEAU Thibaut (aka Thibautg16)
+ #
+ # Authors :
+ #  - Gillardeau Thibaut (aka Thibautg16)
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License"). 
+ # You may not use this file except in compliance with the License. 
+ # A copy of the License is located at :
+ # 
+ # http://www.apache.org/licenses/LICENSE-2.0.txt 
+ # 
+ # or in the "license" file accompanying this file. This file is distributed 
+ # on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either 
+ # express or implied. See the License for the specific language governing 
+ # permissions and limitations under the License. 
+ #}
+  
+{% extends "@Thibautg16Squelette/layout.html.twig" %}
+ 
+{% block title %}
+	{{ parent() }} - Accueil
+{% endblock %}
+
+{% block fil_ariane %} 
+	{{ parent() }} 
+    <li><a href=""{{ path('index') }}"">Accueil</a></li>
+{% endblock %}
+
+{% block body_thibautg16 %}    
+    {% if app.user is not null %}
+        {% for role in app.user.roles %}
+            <br/>
+            {% if (role == 'ROLE_UTILISATEUR_ADMIN') or (role == 'ROLE_UTILISATEUR_UTILISATEUR') %}
+                {% include '@Thibautg16Utilisateur/accueil.html.twig' %}
+            {% endif %}
+
+            {% if (role == 'ROLE_EEDOMUS_ADMIN') or (role == 'ROLE_EEDOMUS_UTILISATEUR') %}
+                {% include '@Eedomus/accueil.html.twig' %}
+            {% endif %}
+
+            {% if (role == 'ROLE_EPARGNE_ADMIN') or (role == 'ROLE_EPARGNE_UTILISATEUR') %}
+                {% include '@Epargne/accueil.html.twig' %}
+            {% endif %}         
+        {% endfor %}
+    {% endif %}
+{% endblock %}
